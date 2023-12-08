@@ -13,6 +13,17 @@ defmodule Day02 do
     |> IO.inspect()
   end
 
+  def part2() do
+    File.read!("lib/day_02/part2.txt")
+    |> String.split("\n", trim: true)
+    |> Enum.map(&Parser.parse_game/1)
+    |> Map.new(fn {id, turns} -> {id, Calculator.max(turns)} end)
+    |> Map.values()
+    |> Enum.map(fn m -> m |> Map.values() |> Enum.product() end)
+    |> Enum.sum()
+    |> IO.inspect()
+  end
+
   defp filter_lower({_, turns}, colors) do
     Map.get(turns, :red) <= Map.get(colors, :red) and
       Map.get(turns, :green) <= Map.get(colors, :green) and
