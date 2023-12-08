@@ -1,4 +1,4 @@
-defmodule Day1 do
+defmodule Day01 do
   require Unicode.Guards
   alias Unicode.Guards
 
