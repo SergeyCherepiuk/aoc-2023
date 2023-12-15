@@ -2,10 +2,11 @@ defmodule Day03 do
   alias Day03.Math
 
   def part1 do
-    windows = File.read!("lib/day_03/part1.txt")
-    |> String.split("\n", trim: true)
-    |> padding()
-    |> Enum.chunk_every(3, 1, :discard)
+    windows =
+      File.read!("lib/day_03/part1.txt")
+      |> String.split("\n", trim: true)
+      |> padding()
+      |> Enum.chunk_every(3, 1, :discard)
 
     windows
     |> Enum.map(&process_window/1)
@@ -28,7 +29,8 @@ defmodule Day03 do
     middle_line = Enum.at(window, 1)
     numbers = numbers_with_position(middle_line)
 
-    numbers |> Enum.filter(fn {_, {index, length}} ->
+    numbers
+    |> Enum.filter(fn {_, {index, length}} ->
       is_attached(index, length, window)
     end)
   end
@@ -46,11 +48,11 @@ defmodule Day03 do
     |> Enum.empty?()
     |> Kernel.not()
   end
- 
+
   defp process_line(index, length, line) do
     start_index = Math.max(0, index - 1)
     end_index = Math.min(String.length(line), index + length)
-    
+
     line
     |> String.slice(start_index..end_index)
     |> String.replace(~r/[0-9\.]/, "")
